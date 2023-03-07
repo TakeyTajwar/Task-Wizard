@@ -1,0 +1,2 @@
+= Task Wizard =
+Ncurses Task Manager & Agenda Calander inspired by Org Agenda.
