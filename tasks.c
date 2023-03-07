@@ -65,19 +65,29 @@ void list_tasks()
 	sqlite3_free(zErrMsg);
 }
 
-void add_task(char title[32])
+void add_task(char title[64])
 {
 	int rc;
 	char *sql;
+	sqlite3_stmt *stmt;
 	char *zErrMsg = 0;
+	const char *pszTest;
 
 	sql = \
 	"INSERT INTO TASKS (TITLE,DONE)" \
-	"VALUES ( 'Shower', NULL);";
+	"VALUES ( ? , NULL);";
 
-	rc = sqlite3_exec(db, sql, NULL, 0, &zErrMsg);
+	rc = sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, &pszTest);
+	//rc = sqlite3_exec(db, sql, NULL, 0, &zErrMsg);
 
-	if (rc != SQLITE_OK)
+	if (rc == SQLITE_OK)
+	{
+		sqlite3_bind_text(stmt, 1, title, 64, NULL);
+
+		sqlite3_step(stmt);
+		sqlite3_finalize(stmt);
+	}
+	else
 	{
 		fprintf(stderr, "SQL Error: %s\n", zErrMsg);
 	}
