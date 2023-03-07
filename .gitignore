@@ -4,6 +4,9 @@
 # Object files
 *.o
 
+# Database
+*.db
+
 # Precompiled Headers
 *.gch
 
