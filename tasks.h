@@ -8,7 +8,7 @@ void clear_list();
 void list_tasks();
 
 // Add a new task to DB
-void add_task(char title[32]);
+void add_task(char title[64], char date[10], char time[5]);
 
 // Create* Data Directory & Fetch DB to memory
 void fetch_db();

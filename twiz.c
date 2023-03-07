@@ -98,7 +98,7 @@ int main()
 			// Task Editor
 			case KB_ADD_NEW_TASK:
 				// add task
-				add_task("Title");
+				add_task("Here is another task", "2023-03-07", "15:00");
 				list_tasks();
 				break;
 			case KB_EXIT_EDITOR:

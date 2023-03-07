@@ -30,9 +30,11 @@ void clear_list()
 
 static int list_tasks_callback(void *data, int argc, char **argv, char **azColName)
 {
-	mvwprintw(list_win, list_col+2, 2, "%s\t%s\n",\
+	mvwprintw(list_win, list_col+2, 2, "%s @ %s : %-32s %s",\
 	argv[0] ? argv[0] : "NULL",\
-	argv[1] ? "DONE" : "TODO"\
+	argv[1] ? argv[1] : "NULL",\
+	argv[2] ? argv[2] : "NULL",\
+	argv[3] ? "DONE" : "TODO"\
 	);
 	++list_col;
 
@@ -48,7 +50,7 @@ void list_tasks()
 
 	clear_list();
 
-	sql = "SELECT * from TASKS";
+	sql = "SELECT DATE, TIME, TITLE, DONE from TASKS";
 
 	wattron(list_win, COLOR_PAIR(3));
 	rc = sqlite3_exec(db, sql, list_tasks_callback, (void*)data, &zErrMsg);
@@ -65,7 +67,7 @@ void list_tasks()
 	sqlite3_free(zErrMsg);
 }
 
-void add_task(char title[64])
+void add_task(char title[64], char date[10], char time[5])
 {
 	int rc;
 	char *sql;
@@ -74,8 +76,8 @@ void add_task(char title[64])
 	const char *pszTest;
 
 	sql = \
-	"INSERT INTO TASKS (TITLE,DONE)" \
-	"VALUES ( ? , NULL);";
+	"INSERT INTO TASKS (TITLE,DATE,TIME,DONE)" \
+	"VALUES ( ?, ?, ?, NULL );";
 
 	rc = sqlite3_prepare_v2(db, sql, strlen(sql), &stmt, &pszTest);
 	//rc = sqlite3_exec(db, sql, NULL, 0, &zErrMsg);
@@ -83,6 +85,8 @@ void add_task(char title[64])
 	if (rc == SQLITE_OK)
 	{
 		sqlite3_bind_text(stmt, 1, title, 64, NULL);
+		sqlite3_bind_text(stmt, 2, date,  10, NULL);
+		sqlite3_bind_text(stmt, 3, time,   5, NULL);
 
 		sqlite3_step(stmt);
 		sqlite3_finalize(stmt);
@@ -132,6 +136,8 @@ void create_table()
 	sql = \
 	"CREATE TABLE IF NOT EXISTS TASKS(" \
 	"TITLE TEXT NOT NULL," \
+	"DATE  TEXT NOT NULL,"\
+	"TIME  TEXT NOT NULL,"\
 	"DONE  INT);";
 
 	rc = sqlite3_exec(db, sql, NULL, 0, &zErrMsg);
