@@ -1,0 +1,13 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+
+# Precompiled Headers
+*.gch
+
+# Executables
+twiz
+*.exe
+*.out
