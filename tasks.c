@@ -117,8 +117,8 @@ void fetch_db()
 		fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(db));
 	}
 
-	// Create Table (if it doesn't exist) and list tasks);
-	create_table();
+	// Create Tables (if they don't exist) and list tasks);
+	create_tables();
 	list_tasks();
 }
 
@@ -127,12 +127,13 @@ void close_db()
 	sqlite3_close(db);
 }
 
-void create_table()
+void create_tables()
 {
 	int rc;
 	char *sql;
 	char *zErrMsg = 0;
 
+	// Tasks Table
 	sql = \
 	"CREATE TABLE IF NOT EXISTS TASKS(" \
 	"TITLE TEXT NOT NULL," \
@@ -146,5 +147,27 @@ void create_table()
 	{
 		fprintf(stderr, "SQL Error: %s\n", zErrMsg);
 	}
+
+	// Logs Table
+	/*
+		STAT tells what happened to the logged task
+		0 - DONE
+		1 - CANCELLED
+		2 - SKIPPED
+	*/
+	sql = \
+	"CREATE TABLE IF NOT EXISTS LOGS(" \
+	"TITLE TEXT NOT NULL," \
+	"DATE  TEXT NOT NULL,"\
+	"TIME  TEXT NOT NULL,"\
+	"STAT  INT);";
+
+	rc = sqlite3_exec(db, sql, NULL, 0, &zErrMsg);
+
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "SQL Error: %s\n", zErrMsg);
+	}
+
 	sqlite3_free(zErrMsg);
 }

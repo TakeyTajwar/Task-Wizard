@@ -17,6 +17,6 @@ void fetch_db();
 void close_db();
 
 // Create Data Table
-void create_table();
+void create_tables();
 
 #endif
