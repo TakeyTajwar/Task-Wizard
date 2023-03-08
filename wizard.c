@@ -49,7 +49,7 @@ void warn_nokb(int format)
 {
 	clear_warn();
 	wattron(wiz_win,   COLOR_PAIR(5));
-	mvwprintw(wiz_win, getmaxy(wiz_win)-4, 2, "No keybinding for <%c>", format);
+	print_help(getmaxy(wiz_win)-4, "No keybinding for <%c>", format);
 	wattroff(wiz_win,   COLOR_PAIR(5));
 	wrefresh(wiz_win);
 }
