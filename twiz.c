@@ -7,12 +7,6 @@
 #include "wizard.h"
 #include "tasks.h"
 
-// Move Cursor Down
-void cursor_next();
-
-// Move Cursor Up
-void cursor_prev();
-
 int main()
 {
 
@@ -127,20 +121,4 @@ int main()
 	refresh();
 	endwin();
 	return 0;
-}
-
-void cursor_next()
-{
-	if (sel_cursor_y < getmaxy(sel_win)-2)
-	{
-		++sel_cursor_y;
-	}
-}
-
-void cursor_prev()
-{
-	if (sel_cursor_y > 2)
-	{
-		--sel_cursor_y;
-	}
 }

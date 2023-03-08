@@ -19,6 +19,13 @@ void create_task_windows();
 // Destroy all the task windows
 void destroy_task_windows();
 
+// Cursor Navigation
+void cursor_next();
+void cursor_prev();
+void cursor_start();
+void cursor_end();
+void cursor_center();
+
 extern int col, row;
 extern WINDOW *list_win, *tasks_win, *task_win, *wiz_win;
 extern WINDOW *sel_win;

@@ -78,3 +78,34 @@ void destroy_task_windows()
 	destroy_win(task_win);
 	destroy_win(wiz_win);
 }
+
+void cursor_next()
+{
+	if (sel_cursor_y < getmaxy(sel_win)-2)
+	{
+		++sel_cursor_y;
+	}
+}
+
+void cursor_prev()
+{
+	if (sel_cursor_y > 2)
+	{
+		--sel_cursor_y;
+	}
+}
+
+void cursor_start()
+{
+	sel_cursor_y = 2;
+}
+
+void cursor_end()
+{
+	sel_cursor_y = getmaxy(sel_win)-2;
+}
+
+void cursor_center()
+{
+	sel_cursor_y = getmaxy(sel_win)/2;
+}
