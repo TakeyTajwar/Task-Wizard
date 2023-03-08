@@ -74,7 +74,16 @@ int main()
 			case AKB_PREV:
 				cursor_prev();
 				break;
-			case KB_TOGGLE:
+			case KB_START:
+				cursor_start();
+				break;
+			case KB_END:
+				cursor_end();
+				break;
+			case KB_CENTER:
+				cursor_center();
+				break;
+			case KB_WSWITCH:
 				// Toggle between Tasks & List windows
 				if(sel_win == tasks_win)
 				{
