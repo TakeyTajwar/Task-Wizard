@@ -4,7 +4,7 @@ TARGET = twiz
 
 CC = cc
 CFLAGS = -lncurses -lsqlite3
-OBJS = twiz.o wizard.o windows.o tasks.o
+OBJS = twiz.o wizard.o windows.o tasks.o task_editor.o
 
 # Executable
 

@@ -1,11 +1,11 @@
 #include <ncurses.h>
-#include <string.h>
 
 #include "twiz.h"
 #include "keybinding.h"
 #include "windows.h"
 #include "wizard.h"
 #include "tasks.h"
+#include "task_editor.h"
 
 int main()
 {
@@ -33,10 +33,6 @@ int main()
 
 	// windows
 	create_task_windows();
-	wattron(tasks_win, COLOR_PAIR(3));
-	wattron(list_win,  COLOR_PAIR(3));
-	wattron(task_win,  COLOR_PAIR(3));
-	wattron(wiz_win,   COLOR_PAIR(3));
 	tasks_navigation_help();
 
 	// DB
@@ -101,8 +97,10 @@ int main()
 			// Task Editor
 			case KB_ADD_NEW_TASK:
 				// add task
-				add_task("Here is another task", "2023-03-07", "15:00");
+				create_task_help();
+				create_task();
 				list_tasks();
+				tasks_navigation_help();
 				break;
 			case KB_EXIT_EDITOR:
 				break;
