@@ -6,6 +6,7 @@
 void clear_help();
 void tasks_navigation_help();
 void task_editor_help();
+void create_task_help();
 
 void clear_warn();
 void warn_nokb(int format);

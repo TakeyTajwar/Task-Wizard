@@ -3,6 +3,7 @@
 #include "wizard.h"
 #include "windows.h"
 #include "keybinding.h"
+#include "config.h"
 
 void clear_help()
 {
@@ -32,6 +33,24 @@ void tasks_navigation_help()
 	print_help(11, "%c to mark the task done", KB_DONE);
 	print_help(12, "%c to skip the task", KB_SKIP);
 	print_help(13, "%c to delete the task", KB_DELETE);
+
+	wrefresh(wiz_win);
+}
+
+void create_task_help()
+{
+	clear_help();
+	wattron(wiz_win,   COLOR_PAIR(3));
+	print_help(3, "Enter Title, Date, Time, etc to create a new Task", 0);
+	print_help(4, "Date should be in YYYY%cMM%cDD format. Leave it blank to use current date.", DATE_SEP, DATE_SEP);
+	print_help(5, "Time should be in HH%cMM format and in 24h.", TIME_SEP);
+
+	print_help(7, "Use number followed by %c/%c/%c/%c for task recursion rate.", DAILY, WEEKLY, MONTHLY, YEARLY);
+	print_help(8, "'1%c' will recur a task every week", WEEKLY);
+
+
+	print_help(10, "Use weekday filter to recur tasks only certain days of the week.", 0);
+	print_help(11, "Filtered date should be in YYYY/MM/DD format with one or more number being replaced by *.", 0);
 
 	wrefresh(wiz_win);
 }
